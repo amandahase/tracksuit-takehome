@@ -34,11 +34,11 @@ export const AddInsight = (props: AddInsightProps) => {
     }
   };
 
-  const handleBrandChange = (e) => {
+  const handleBrandChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setBrandValue(Number(e.target.value));
   };
 
-  const handleInsightText = (e) => {
+  const handleInsightText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInsightText(e.target.value);
   };
 

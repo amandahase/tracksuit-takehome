@@ -11,14 +11,6 @@ export const AddInsight = (props: AddInsightProps) => {
   const [insightText, setInsightText] = useState<string>("");
 
   const addInsight = async () => {
-    /** PSEUDO CODE:
-     * 1. have a body object that contains all of the necessary information to pass to the DB table matching with the insights schema (id, brandId, date, text)
-     * 2. that body object would then be passed into the call as the request body
-     * 3. we would wait for that call to finish before continuing
-     * 4. a successful create, would add the created insight to the list of insights in the DB and that would then be displayed on the page
-     * 5. an errored call would display a message about the error instead
-     */
-
     const responseBody = {
       brand: brandValue,
       createdAt: (new Date()).toISOString(),

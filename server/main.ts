@@ -20,7 +20,7 @@ console.log(`Opening SQLite database at ${dbFilePath}`);
 await Deno.mkdir(path.dirname(dbFilePath), { recursive: true });
 const db = new Database(dbFilePath);
 
-// Ensure the insights table exists (idempotent).
+// Ensure the insights table exists
 db.exec(insightsTable.createTable);
 
 console.log("Initialising server");
@@ -46,22 +46,18 @@ router.get("/insights/:id", (ctx) => {
 });
 
 router.post("/insights/create", async (ctx) => {
-  /** PSEUDO CODE:
-   * 1. Get the values being sent by the FE call
-   * 2. Add a unique id to that data
-   * 3. Make a object that includes 1 and 2 and create a new row in the DB table with that information
-   */
-
   const body = await ctx.request.body.json();
-  console.log("heyy", body);
-
   db.prepare(
     `INSERT INTO insights (brand, createdAt, text) VALUES (?, ?, ?);`,
   ).run(body.brand, body.createdAt, body.text);
+  ctx.response.status = 201;
 });
 
-router.get("/insights/delete", (ctx) => {
-  // TODO
+router.delete("/insights/:id", (ctx) => {
+  db.prepare(
+    `DELETE FROM insights WHERE id = ?;`,
+  ).run(ctx.params.id);
+  ctx.response.status = 204;
 });
 
 const app = new oak.Application();

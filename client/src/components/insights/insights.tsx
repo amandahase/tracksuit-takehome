@@ -9,7 +9,24 @@ type InsightsProps = {
 };
 
 export const Insights = ({ insights, className }: InsightsProps) => {
-  const deleteInsight = () => undefined;
+  const deleteInsight = async (id: number) => {
+    try {
+      const response = await fetch(`/api/insights/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 204) {
+        console.log("successfully deleted insight");
+      } else {
+        console.log("something went wrong");
+      }
+    } catch {
+      console.log("error happened");
+    }
+  };
 
   return (
     <div className={cx(className)}>
@@ -25,7 +42,8 @@ export const Insights = ({ insights, className }: InsightsProps) => {
                     <span>{createdAt}</span>
                     <Trash2Icon
                       className={styles["insight-delete"]}
-                      onClick={deleteInsight}
+                      onClick={() =>
+                        deleteInsight(id)}
                     />
                   </div>
                 </div>

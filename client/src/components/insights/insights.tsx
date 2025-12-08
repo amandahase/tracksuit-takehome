@@ -28,6 +28,10 @@ export const Insights = ({ insights, className }: InsightsProps) => {
     }
   };
 
+  const displayCreatedDate = (date: Date) => {
+    return `${new Date(date).toLocaleString()}`;
+  };
+
   return (
     <div className={cx(className)}>
       <h1 className={styles.heading}>Insights</h1>
@@ -37,9 +41,9 @@ export const Insights = ({ insights, className }: InsightsProps) => {
             insights.map(({ id, text, createdAt, brand }) => (
               <div className={styles.insight} key={id}>
                 <div className={styles["insight-meta"]}>
-                  <span>{brand}</span>
+                  <span>Brand {brand}</span>
                   <div className={styles["insight-meta-details"]}>
-                    <span>{createdAt}</span>
+                    <span>{displayCreatedDate(createdAt)}</span>
                     <Trash2Icon
                       className={styles["insight-delete"]}
                       onClick={() =>

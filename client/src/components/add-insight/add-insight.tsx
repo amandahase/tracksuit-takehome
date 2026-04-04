@@ -28,9 +28,12 @@ export const AddInsight = (props: AddInsightProps) => {
 
       const newInsight = await response.json();
 
-      return newInsight;
-    } catch {
-      console.log("error happened");
+      if (response.ok) {
+        props.onClose();
+        return newInsight;
+      }
+    } catch(e: unknown) {
+      console.log(e, "error happened");
     }
   };
 

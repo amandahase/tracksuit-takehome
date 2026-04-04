@@ -7,25 +7,25 @@ import type { Insight } from "../schemas/insight.ts";
 export const App = () => {
   const [insights, setInsights] = useState<Insight>([]);
 
+  const fetchInsights = async () => {
+    try {
+      const response = await fetch(`/api/insights`);
+      const result = await response.json();
+
+      setInsights(result);
+    } catch {
+      console.log("an error happened!");
+    }
+  };
+
   useEffect(() => {
-    const fetchInsights = async () => {
-      try {
-        const response = await fetch(`/api/insights`);
-        const result = await response.json();
-
-        setInsights(result);
-      } catch {
-        console.log("an error happened!");
-      }
-    };
-
     fetchInsights();
   }, []);
 
   return (
     <main className={styles.main}>
       <Header />
-      <Insights className={styles.insights} insights={insights} />
+      <Insights className={styles.insights} insights={insights} getInsights={fetchInsights} />
     </main>
   );
 };

@@ -6,9 +6,10 @@ import type { Insight } from "../../schemas/insight.ts";
 type InsightsProps = {
   insights: Insight[];
   className?: string;
+  getInsights: () => void
 };
 
-export const Insights = ({ insights, className }: InsightsProps) => {
+export const Insights = ({ insights, className, getInsights }: InsightsProps) => {
   const deleteInsight = async (id: number) => {
     try {
       const response = await fetch(`/api/insights/${id}`, {
@@ -19,12 +20,10 @@ export const Insights = ({ insights, className }: InsightsProps) => {
       });
 
       if (response.status === 204) {
-        console.log("successfully deleted insight");
-      } else {
-        console.log("something went wrong");
+        getInsights();
       }
-    } catch {
-      console.log("error happened");
+    } catch(e: unknown) {
+      console.log(e, "error happened");
     }
   };
 

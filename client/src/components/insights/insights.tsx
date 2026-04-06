@@ -9,6 +9,8 @@ type InsightsProps = {
   getInsights: () => void
 };
 
+// TODO: Make trash can icon interactive element to gain native focus and functionality
+
 export const Insights = ({ insights, className, getInsights }: InsightsProps) => {
   const deleteInsight = async (id: number) => {
     try {
@@ -43,11 +45,9 @@ export const Insights = ({ insights, className, getInsights }: InsightsProps) =>
                   <span>Brand {brand}</span>
                   <div className={styles["insight-meta-details"]}>
                     <span>{displayCreatedDate(createdAt)}</span>
-                    <Trash2Icon
-                      className={styles["insight-delete"]}
-                      onClick={() =>
-                        deleteInsight(id)}
-                    />
+                    <button className={cx(styles["insight-delete"])} onClick={() => deleteInsight(id)}>
+                      <Trash2Icon />
+                    </button>
                   </div>
                 </div>
                 <p className={styles["insight-content"]}>{text}</p>

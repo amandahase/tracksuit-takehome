@@ -34,6 +34,11 @@ const ANIMATIONS = {
 /**
  * @component
  * Modal that opens in a portal
+ * 
+ * 
+ * TODO: 
+ * - Add focus trap to modal to keep focus from leaving when modal is open
+ * - Fix close icon to be a button so it can have interactive functionality
  */
 export const Modal = ({ open, onClose, children }: ModalProps) => {
   useEffect(() => {
@@ -60,7 +65,9 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
                 e.stopPropagation();
               }}
             >
-              <XIcon className={styles.close} onClick={onClose} />
+              <button className={styles.close} onClick={onClose}>
+                <XIcon />
+              </button>
 
               <div className={cx(styles.content)}>{children}</div>
             </motion.div>

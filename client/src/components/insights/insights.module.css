@@ -34,8 +34,12 @@
   height: var(--size-5);
   cursor: pointer;
   transition: stroke 250ms ease;
-  &:hover {
-    stroke: var(--color-red-500);
+  &:hover,
+  &:active,
+  &:focus {
+    & svg {
+      stroke: var(--color-red-500);
+    }
   }
 }
 
